@@ -319,7 +319,7 @@ span:hover {
     gap: 30px;
   }
   .DivUl {
-    z-index: 5;
+    z-index: 30;
     height: 100vh;
     width: 250px;
     position: fixed;
