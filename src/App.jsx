@@ -4,20 +4,22 @@ import ImageSlider from "./ImageSlider";
 import logo from "./assets/logo.svg";
 import cart from "./assets/icon-cart.svg";
 import avatar from "./assets/image-avatar.png";
-import smallImage1 from "./assets/image-product-1-thumbnail.jpg";
-import smallImage2 from "./assets/image-product-2-thumbnail.jpg";
-import smallImage3 from "./assets/image-product-3-thumbnail.jpg";
-import smallImage4 from "./assets/image-product-4-thumbnail.jpg";
 import image1 from '/image-product-1.jpg'
+import smallImage1 from "./assets/image-product-1-thumbnail.jpg";
 import iconDelete from "./assets/icon-delete.svg";
 import iconPlus from "./assets/icon-plus.svg";
 import iconMinus from "./assets/icon-minus.svg";
 import hamburger from "./assets/icon-menu.svg";
 import closeMenu from "./assets/icon-close.svg";
+import Images from "./images";
 function App() {
   const [count, setCount] = useState(0);
   function subNumber() {
-    setCount(count - 1);
+    if(count > 0){
+      setCount(count - 1);
+      return 
+    }
+    
   }
   function addNumber() {
     setCount(count + 1);
@@ -33,10 +35,7 @@ function App() {
   };
   const [openModal, setOpenModal] = useState(false);
   const showCartItems = () => {
-    setOpenModal(true);
-  };
-  const closeCartItems = () => {
-    setOpenModal(false);
+    setOpenModal((prevItems) =>!prevItems);
   };
   const [showNav, setShowNav] = useState(false);
   const openNav = () => {
@@ -53,10 +52,6 @@ function App() {
     "/image-product-3.jpg",
     "/image-product-4.jpg",
   ];
-  const [openMainModal, setOpenMainModal] = useState(false)
-  const showMainModal = () =>{
-    setOpenMainModal(true)
-  }
   const style = [{
     opacity : 0.5}
   ]
@@ -92,7 +87,25 @@ function App() {
                 </li>
               </ul>
             </div>
+            
           )}
+           <ul className="ul-nav-pc">
+                <li>
+                  <a href="#">Collections</a>
+                </li>
+                <li>
+                  <a href="#">Men</a>
+                </li>
+                <li>
+                  <a href="#">Women</a>
+                </li>
+                <li>
+                  <a href="#">About</a>
+                </li>
+                <li>
+                  <a href="#">Contact</a>
+                </li>
+              </ul>
         </div>
 
         <div className="images">
@@ -121,8 +134,6 @@ function App() {
                       </div>
                       <img src={iconDelete} alt="" />
                     </div>
-
-                    <button onClick={closeCartItems}>Checkout</button>
                   </div>
                 )}
               </div>
@@ -132,6 +143,11 @@ function App() {
         </div>
       </header>
       <main>
+      <div className="mainBigImages">
+
+<ImageSlider images={Mainimages} />
+
+</div>
         <div className="big-images">
           <img src={image1} alt="" className="image-1" />
         </div>
@@ -165,21 +181,11 @@ function App() {
           </div>
         </div>
       </main>
-      <div className="littleImages">
-        <img
-          onClick={showMainModal}
-          className="active"
-          src={smallImage1}
-          alt=""
-        />
-        <img onClick={showMainModal} src={smallImage2} alt="" />
-        <img onClick={showMainModal} src={smallImage3} alt="" />
-        <img onClick={showMainModal} src={smallImage4} alt="" />
-      </div>
-      <div className="mainBigImages">
-      {openMainModal &&
+      <Images/>
+      <div className="mainBigImage">
+
         <ImageSlider images={Mainimages} />
-      }
+
       </div>
     </>
   );
