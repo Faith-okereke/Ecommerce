@@ -4,39 +4,42 @@ import ImageSlider from "./ImageSlider";
 import logo from "./assets/logo.svg";
 import cart from "./assets/icon-cart.svg";
 import avatar from "./assets/image-avatar.png";
-import image1 from '/image-product-1.jpg'
+import image1 from "/image-product-1.jpg";
 import smallImage1 from "./assets/image-product-1-thumbnail.jpg";
 import iconDelete from "./assets/icon-delete.svg";
 import iconPlus from "./assets/icon-plus.svg";
 import iconMinus from "./assets/icon-minus.svg";
 import hamburger from "./assets/icon-menu.svg";
 import closeMenu from "./assets/icon-close.svg";
-import Images from "./images";
-function App() {
+import smallImage2 from "./assets/image-product-2-thumbnail.jpg";
+import smallImage3 from "./assets/image-product-3-thumbnail.jpg";
+import smallImage4 from "./assets/image-product-4-thumbnail.jpg";
+function App(props) {
   const [count, setCount] = useState(0);
+  const [item, setItem] = useState("");
   function subNumber() {
-    if(count > 0){
+    if (count > 0) {
       setCount(count - 1);
-      return 
+      return;
     }
-    
   }
   function addNumber() {
     setCount(count + 1);
   }
-  const cartPara = document.getElementById("modalCartInfo");
-  const cartInfoModal = document.querySelector(".modalCart");
-  const cartNumber = document.querySelector(".number");
-  const addItemButton = document.querySelector(".addItem");
+
   const mainPrice = 125.0;
   let multiplication = mainPrice * count;
+  const cartNumber = document.querySelector(".number");
   const addItemToCart = () => {
-    cartNumber.innerHTML = count;
+    setItem(count);
   };
   const [openModal, setOpenModal] = useState(false);
   const showCartItems = () => {
-    setOpenModal((prevItems) =>!prevItems);
+    setOpenModal((prevItems) => !prevItems);
   };
+  const closeModal=()=>{
+    setOpenModal(false)
+  }
   const [showNav, setShowNav] = useState(false);
   const openNav = () => {
     console.log("NavBar Opened");
@@ -46,15 +49,19 @@ function App() {
     console.log("NavBar Closed");
     setShowNav(false);
   };
+  const clearItem=()=>{
+    setCount(0)
+  }
   const Mainimages = [
     "/image-product-1.jpg",
     "/image-product-2.jpg",
     "/image-product-3.jpg",
     "/image-product-4.jpg",
   ];
-  const style = [{
-    opacity : 0.5}
-  ]
+  const [openMainModal, setOpenMainModal] = useState(false);
+  const showMainModal = () => {
+    setOpenMainModal((prevState) => !prevState);
+  };
   return (
     <>
       <header>
@@ -87,30 +94,29 @@ function App() {
                 </li>
               </ul>
             </div>
-            
           )}
-           <ul className="ul-nav-pc">
-                <li>
-                  <a href="#">Collections</a>
-                </li>
-                <li>
-                  <a href="#">Men</a>
-                </li>
-                <li>
-                  <a href="#">Women</a>
-                </li>
-                <li>
-                  <a href="#">About</a>
-                </li>
-                <li>
-                  <a href="#">Contact</a>
-                </li>
-              </ul>
+          <ul className="ul-nav-pc">
+            <li>
+              <a href="#">Collections</a>
+            </li>
+            <li>
+              <a href="#">Men</a>
+            </li>
+            <li>
+              <a href="#">Women</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <a href="#">Contact</a>
+            </li>
+          </ul>
         </div>
 
         <div className="images">
           <img onClick={showCartItems} src={cart} alt="cart" className="cart" />
-          <p className="number"></p>
+          {count > 0 && <p className="number">{item}</p>}
           {openModal && (
             <div className="modalCart">
               <p className="cartTopic">Cart</p>
@@ -118,8 +124,8 @@ function App() {
                 {count < 1 ? (
                   <p className="emptyMessage">Your cart is empty</p>
                 ) : (
-                  <div className="notEmpty">
-                    <div className="notEmptyFirst">
+                  <div className="notEmptyFirst">
+                    <div className="notEmptyCart">
                       <img
                         className="smallImageThumbnail"
                         src={smallImage1}
@@ -128,12 +134,14 @@ function App() {
                       <div className="middle">
                         <p>Fall limited sneaker edition</p>
                         <p>
-                          $125.00 &times; {count}{" "}
-                          <span>{multiplication}.00</span>{" "}
+                          $125.00 &times; {count}
+                          <span> {multiplication}.00</span>{" "}
                         </p>
                       </div>
-                      <img src={iconDelete} alt="" />
+                      <img onClick={clearItem} src={iconDelete} alt="" />
                     </div>
+
+                    <button onClick={closeModal}>Checkout</button>
                   </div>
                 )}
               </div>
@@ -143,11 +151,9 @@ function App() {
         </div>
       </header>
       <main>
-      <div className="mainBigImages">
-
-<ImageSlider images={Mainimages} />
-
-</div>
+        <div className="mainBigImages">
+          <ImageSlider images={Mainimages} />
+        </div>
         <div className="big-images">
           <img src={image1} alt="" className="image-1" />
         </div>
@@ -181,11 +187,25 @@ function App() {
           </div>
         </div>
       </main>
-      <Images/>
-      <div className="mainBigImage">
 
-        <ImageSlider images={Mainimages} />
+      <div className="littleImages">
+        <img
+          onClick={showMainModal}
+          className="active"
+          src={smallImage1}
+          alt=""
+        />
+        <img onClick={showMainModal} src={smallImage2} alt="" />
+        <img onClick={showMainModal} src={smallImage3} alt="" />
+        <img onClick={showMainModal} src={smallImage4} alt="" />
+      </div>
 
+      <div className="image-slider">
+        <ImageSlider
+          openMainModal={openMainModal}
+          images={Mainimages}
+          setOpenMainModal={setOpenMainModal}
+        />
       </div>
     </>
   );
