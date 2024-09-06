@@ -103,7 +103,7 @@ export default function Nav({ count, setCount, item }) {
           </div>
 
           {openModal && (
-            <div className="absolute top-16 right-16 bg-white shadow-xl rounded-md ">
+            <div className="absolute md:top-16 md:right-16 top-[100px] h-[250px] right-5 md:left-auto left-5  md:h-auto  bg-white shadow-xl rounded-md z-20">
               <p className="border-b-2 border-b-veryLightGray py-3 px-2 font-bold">
                 Cart
               </p>
@@ -116,13 +116,13 @@ export default function Nav({ count, setCount, item }) {
                   </div>
                 ) : (
                   <div className="pb-5">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center align-top gap-4 pt-8">
                       <img
-                        className="w-8 rounded-md"
+                        className="w-10 rounded-md"
                         src={smallImage1}
                         alt=""
                       />
-                      <div className="pt-3">
+                      <div className="">
                         <p>Fall limited sneaker edition</p>
                         <p>
                           $125.00 &times; {count}
@@ -138,8 +138,8 @@ export default function Nav({ count, setCount, item }) {
                     </div>
 
                     <button
-                      className="bg-orange w-full rounded-md p-2 text-white text-center my-5"
-                      onClick={closeModal}
+                      className="bg-orange w-full rounded-md p-3 text-white text-center my-5"
+                      onClick={clearItem}
                     >
                       Checkout
                     </button>

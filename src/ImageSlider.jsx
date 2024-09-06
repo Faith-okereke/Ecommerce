@@ -38,7 +38,7 @@ const ImageSlider = ({ images, openMainModal, setOpenMainModal }) => {
               />
               {/* Previous Button */}
               <button
-                className="absolute top-1/2 md:left-[120px] left-0 transform -translate-y-1/2 bg-white rounded-full flex justify-center items-center h-10 w-10 cursor-pointer"
+                className="absolute top-1/2 md:left-[120px] left-5 transform -translate-y-1/2 bg-white rounded-full flex justify-center items-center h-10 w-10 cursor-pointer"
                 onClick={prevSlide}
                 aria-label="Previous slide"
               >
@@ -46,7 +46,7 @@ const ImageSlider = ({ images, openMainModal, setOpenMainModal }) => {
               </button>
               {/* Next Button */}
               <button
-                className="absolute top-1/2 md:right-[120px] right-0 transform -translate-y-1/2 bg-white rounded-full flex justify-center items-center h-10 w-10 cursor-pointer"
+                className="absolute top-1/2 md:right-[120px] right-5 transform -translate-y-1/2 bg-white rounded-full flex justify-center items-center h-10 w-10 cursor-pointer"
                 onClick={nextSlide}
                 aria-label="Next slide"
               >
