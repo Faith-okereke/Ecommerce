@@ -1,19 +1,13 @@
 import { useState } from "react";
 import "./App.css";
 import ImageSlider from "./ImageSlider";
-import logo from "./assets/logo.svg";
 import cart from "./assets/icon-cart.svg";
-import avatar from "./assets/image-avatar.png";
 import image1 from "/image-product-1.jpg";
-import smallImage1 from "./assets/image-product-1-thumbnail.jpg";
-import iconDelete from "./assets/icon-delete.svg";
 import iconPlus from "./assets/icon-plus.svg";
 import iconMinus from "./assets/icon-minus.svg";
-import hamburger from "./assets/icon-menu.svg";
-import closeMenu from "./assets/icon-close.svg";
-import smallImage2 from "./assets/image-product-2-thumbnail.jpg";
-import smallImage3 from "./assets/image-product-3-thumbnail.jpg";
-import smallImage4 from "./assets/image-product-4-thumbnail.jpg";
+
+import TinyImages from "./TinyImages";
+import Nav from "./Nav";
 function App(props) {
   const [count, setCount] = useState(0);
   const [item, setItem] = useState("");
@@ -26,32 +20,17 @@ function App(props) {
   function addNumber() {
     setCount(count + 1);
   }
-
-  const mainPrice = 125.0;
-  let multiplication = mainPrice * count;
-  const cartNumber = document.querySelector(".number");
-  const addItemToCart = () => {
-    setItem(count);
-  };
-  const [openModal, setOpenModal] = useState(false);
-  const showCartItems = () => {
-    setOpenModal((prevItems) => !prevItems);
-  };
-  const closeModal=()=>{
-    setOpenModal(false)
-  }
   const [showNav, setShowNav] = useState(false);
-  const openNav = () => {
-    console.log("NavBar Opened");
-    setShowNav(true);
-  };
+
   const closeNav = () => {
     console.log("NavBar Closed");
     setShowNav(false);
   };
-  const clearItem=()=>{
-    setCount(0)
-  }
+  const cartNumber = document.querySelector(".number");
+  const addItemToCart = () => {
+    setItem(count);
+  };
+
   const Mainimages = [
     "/image-product-1.jpg",
     "/image-product-2.jpg",
@@ -63,151 +42,103 @@ function App(props) {
     setOpenMainModal((prevState) => !prevState);
   };
   return (
-    <>
-      <header>
-        <div className="firsts">
-          <img
-            onClick={openNav}
-            className="hamburger"
-            src={hamburger}
-            alt="hamburger"
-          />
-          <img src={logo} alt="" className="logo" />
-          {showNav && (
-            <div className="DivUl">
-              <img onClick={closeNav} src={closeMenu} alt="" />
-              <ul>
-                <li>
-                  <a href="#">Collections</a>
-                </li>
-                <li>
-                  <a href="#">Men</a>
-                </li>
-                <li>
-                  <a href="#">Women</a>
-                </li>
-                <li>
-                  <a href="#">About</a>
-                </li>
-                <li>
-                  <a href="#">Contact</a>
-                </li>
-              </ul>
-            </div>
-          )}
-          <ul className="ul-nav-pc">
-            <li>
-              <a href="#">Collections</a>
-            </li>
-            <li>
-              <a href="#">Men</a>
-            </li>
-            <li>
-              <a href="#">Women</a>
-            </li>
-            <li>
-              <a href="#">About</a>
-            </li>
-            <li>
-              <a href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="images">
-          <img onClick={showCartItems} src={cart} alt="cart" className="cart" />
-          {count > 0 && <p className="number">{item}</p>}
-          {openModal && (
-            <div className="modalCart">
-              <p className="cartTopic">Cart</p>
-              <div id="modalCartInfo">
-                {count < 1 ? (
-                  <p className="emptyMessage">Your cart is empty</p>
-                ) : (
-                  <div className="notEmptyFirst">
-                    <div className="notEmptyCart">
-                      <img
-                        className="smallImageThumbnail"
-                        src={smallImage1}
-                        alt=""
-                      />
-                      <div className="middle">
-                        <p>Fall limited sneaker edition</p>
-                        <p>
-                          $125.00 &times; {count}
-                          <span> {multiplication}.00</span>{" "}
-                        </p>
-                      </div>
-                      <img onClick={clearItem} src={iconDelete} alt="" />
-                    </div>
-
-                    <button onClick={closeModal}>Checkout</button>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-          <img src={avatar} alt="cart" className="avatar" />
-        </div>
-      </header>
-      <main>
-        <div className="mainBigImages">
-          <ImageSlider images={Mainimages} />
-        </div>
-        <div className="big-images">
-          <img src={image1} alt="" className="image-1" />
-        </div>
-        <div className="content">
-          <h4>Sneaker Company</h4>
-          <h2>
-            Fall Limited Edition <br /> Sneakers
-          </h2>
-          <p className="para">
-            These low-profile sneakers are your perfect casual wear companion.
-            Featuring a durable rubber outer sole, they’ll withstand everything
-            the weather can offer.
-          </p>
-          <div className="price">
-            <div className="main-money">
-              <p className="main-money-price"> $125.00</p>
-              <p className="discount">50%</p>
-            </div>
-            <p className="former-price">$250.00</p>
-          </div>
-          <div className="payout">
-            <p>
-              <img onClick={subNumber} src={iconMinus} />
-              {count}
-              <img onClick={addNumber} src={iconPlus} />
-            </p>
-            <button onClick={addItemToCart} className="addItem">
-              {" "}
-              <img className="cart-2" src={cart} alt="" /> Add to cart
-            </button>
-          </div>
-        </div>
-      </main>
-
-      <div className="littleImages">
-        <img
-          onClick={showMainModal}
-          className="active"
-          src={smallImage1}
-          alt=""
+    <div>
+      <Nav
+        count={count}
+        setCount={setCount}
+        item={item}
+       
+      />
+     {openMainModal && ( <div className="">
+        <ImageSlider
+          openMainModal={openMainModal}
+          images={Mainimages}
+          setOpenMainModal={setOpenMainModal}
         />
-        <img onClick={showMainModal} src={smallImage2} alt="" />
-        <img onClick={showMainModal} src={smallImage3} alt="" />
-        <img onClick={showMainModal} src={smallImage4} alt="" />
-      </div>
-
-      <div className="image-slider">
+      </div>)}
+      <div className="md:hidden block">
         <ImageSlider
           openMainModal={openMainModal}
           images={Mainimages}
           setOpenMainModal={setOpenMainModal}
         />
       </div>
-    </>
+      <div
+        className={`pb-20 ${
+          openMainModal
+            ? `opacity-75 bg-opacity-80 pointer-events-none bg-overlay overlay`
+            : ``
+        }`}
+      >
+        <main className="md:pt-12">
+          <div className="flex justify-center gap-28">
+            <img
+              src={image1}
+              alt=""
+              className="rounded-lg w-1/3 md:block hidden"
+            />
+
+            <div className="flex flex-col gap-4 md:pt-12 p-5 md:p-0">
+              <h4 className="text-orange font-bold uppercase text-base">
+                Sneaker Company
+              </h4>
+              <h2 className="md:text-4xl text-3xl font-bold pb-5 md:w-2/3">
+                Fall Limited Edition Sneakers
+              </h2>
+              <p className="max-w-[420px] text-lightGray">
+                These low-profile sneakers are your perfect casual wear
+                companion. Featuring a durable rubber outer sole, they’ll
+                withstand everything the weather can offer.
+              </p>
+              <div className="">
+                <div className="flex justify-start items-center gap-3">
+                  <p className="text-2xl font-bold"> $125.00</p>
+                  <p className="text-orange font-bold bg-lightOrange rounded-sm px-2 py-[1px] text-sm">
+                    50%
+                  </p>
+                </div>
+                <p className="text-xs text-lightGray pt-1 font-bold line-through">
+                  $250.00
+                </p>
+              </div>
+              <div className="flex md:flex-row flex-col justify-normal gap-5 items-center">
+                <div className="flex items-center justify-between md:w-1/3 w-full bg-veryLightGray rounded-md px-5 py-3 gap-6">
+                  <img
+                    onClick={subNumber}
+                    src={iconMinus}
+                    className="w-2 cursor-pointer"
+                  />
+                  <p className="font-bold">{count}</p>
+                  <img
+                    onClick={addNumber}
+                    src={iconPlus}
+                    className="w-2 cursor-pointer"
+                  />
+                </div>
+                <div
+                  onClick={addItemToCart}
+                  className="flex gap-2 addItem bg-orange px-5 py-3 rounded-md items-center cursor-pointer w-full  justify-center"
+                >
+                  <img className="w-3" src={cart} alt="" />
+                  <button className="text-white font-bold text-sm">
+                    {" "}
+                    Add to cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        {showNav && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-10"
+            onClick={closeNav}
+          ></div>
+        )}
+        <TinyImages showMainModal={showMainModal} />
+      
+      </div>
+    </div>
   );
 }
 

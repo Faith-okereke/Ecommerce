@@ -19,32 +19,43 @@ const ImageSlider = ({ images, openMainModal, setOpenMainModal }) => {
 
   return (
     <>
-      {openMainModal && (
-        <div className="image-slider">
-          <img
-            onClick={() => {
-              setOpenMainModal(false);
-            }}
-            className="exitButton"
-            src={exitIcon}
-            alt=""
-          />
-          <div className="bigImages">
+      
+        <div className="md:fixed sticky inset-0 bg-black bg-opacity-75 flex items-center justify-center md:z-30">
+          <div className="relative max-w-2xl w-full">
+            {/* Close button */}
             <img
-              className="mainBigImages"
-              src={images[currentImageIndex]}
-              alt={`Slide ${currentImageIndex + 1}`}
+              onClick={() => setOpenMainModal(false)}
+              className="absolute hidden md:block -top-5 right-0 cursor-pointer"
+              src={exitIcon}
+              alt="Close"
             />
-
-            <div className="leftArrow-div" onClick={prevSlide}>
-              <img className="leftArrow" src={arrowLeft} alt="" />
-            </div>
-            <div className="Arrow-div" onClick={nextSlide}>
-              <img className="rightArrow" src={arrowRight} alt="" />
+            {/* Image and navigation */}
+            <div className="relative flex justify-center items-center">
+              <img
+                className="w-full md:w-[60%] md:rounded-xl"
+                src={images[currentImageIndex]}
+                alt={`Slide ${currentImageIndex + 1}`}
+              />
+              {/* Previous Button */}
+              <button
+                className="absolute top-1/2 md:left-[120px] left-0 transform -translate-y-1/2 bg-white rounded-full flex justify-center items-center h-10 w-10 cursor-pointer"
+                onClick={prevSlide}
+                aria-label="Previous slide"
+              >
+                <img src={arrowLeft} alt="Previous" />
+              </button>
+              {/* Next Button */}
+              <button
+                className="absolute top-1/2 md:right-[120px] right-0 transform -translate-y-1/2 bg-white rounded-full flex justify-center items-center h-10 w-10 cursor-pointer"
+                onClick={nextSlide}
+                aria-label="Next slide"
+              >
+                <img src={arrowRight} alt="Next" />
+              </button>
             </div>
           </div>
         </div>
-      )}
+      
     </>
   );
 };
