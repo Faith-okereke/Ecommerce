@@ -7,7 +7,7 @@ import cart from "./assets/icon-cart.svg";
 import avatar from "./assets/image-avatar.png";
 import smallImage1 from "./assets/image-product-1-thumbnail.jpg";
 
-export default function Nav({ count, setCount}) {
+export default function Nav({ count, setCount }) {
   const [openModal, setOpenModal] = useState(false);
   const mainPrice = 125.0;
   let multiplication = mainPrice * count;
@@ -42,9 +42,11 @@ export default function Nav({ count, setCount}) {
             alt="hamburger"
           />
           <img src={logo} alt="" className="" />
-          <div className={`w-[60%] bg-white h-full fixed left-0 top-0 pl-5 md:hidden block z-30 transform transition-transform duration-300 ease-in-out ${
-            showNav ? 'translate-x-0' : '-translate-x-full'
-          }`}>
+          <div
+            className={`w-[60%] bg-white h-full fixed left-0 top-0 pl-5 md:hidden block z-30 transform transition-transform duration-300 ease-in-out ${
+              showNav ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
             <img
               onClick={closeNav}
               src={closeMenu}
@@ -89,7 +91,73 @@ export default function Nav({ count, setCount}) {
           </ul>
         </div>
 
-        {/* Rest of the component remains the same */}
+        <div className="flex items-center justify-center md:gap-7 gap-2">
+          <div className="relative">
+            <img
+              onClick={showCartItems}
+              src={cart}
+              alt="cart"
+              className="cursor-pointer relative"
+            />
+            {count > 0 && (
+              <p className="bg-orange px-2 text-white text-[8px] rounded-2xl absolute -top-1 left-2">
+                {count}
+              </p>
+            )}
+          </div>
+
+          {openModal && (
+            <div className="absolute md:top-16 md:right-16 top-[100px] h-[250px] right-5 md:left-auto left-5  md:h-auto  bg-white shadow-xl rounded-md z-20">
+              <p className="border-b-2 border-b-veryLightGray py-3 px-2 font-bold">
+                Cart
+              </p>
+              <div className=" flex flex-col justify-center items-center px-5">
+                {count < 1 ? (
+                  <div className="px-12 h-36 flex justify-center items-center">
+                    <p className="text-center flex-nowrap text-nowrap font-bold">
+                      Your cart is empty.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="pb-5">
+                    <div className="flex items-center align-top gap-4 pt-8">
+                      <img
+                        className="w-10 rounded-md"
+                        src={smallImage1}
+                        alt=""
+                      />
+                      <div className="">
+                        <p>Fall limited sneaker edition</p>
+                        <p>
+                          $125.00 &times; {count}
+                          <strong> ${multiplication}.00</strong>{" "}
+                        </p>
+                      </div>
+                      <img
+                        onClick={clearItem}
+                        src={iconDelete}
+                        alt=""
+                        className="cursor-pointer"
+                      />
+                    </div>
+
+                    <button
+                      className="bg-orange w-full rounded-md p-3 text-white text-center my-5"
+                      onClick={clearItem}
+                    >
+                      Checkout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+          <img
+            src={avatar}
+            alt="cart"
+            className="w-8 cursor-pointer border-2 rounded-full  hover:border-orange"
+          />
+        </div>
       </div>
     </header>
   );
