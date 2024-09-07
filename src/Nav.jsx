@@ -6,7 +6,7 @@ import logo from "./assets/logo.svg";
 import cart from "./assets/icon-cart.svg";
 import avatar from "./assets/image-avatar.png";
 import smallImage1 from "./assets/image-product-1-thumbnail.jpg";
-export default function Nav({ count, setCount, item }) {
+export default function Nav({ count, setCount}) {
   const [openModal, setOpenModal] = useState(false);
   const mainPrice = 125.0;
   let multiplication = mainPrice * count;
@@ -97,7 +97,7 @@ export default function Nav({ count, setCount, item }) {
             />
             {count > 0 && (
               <p className="bg-orange px-2 text-white text-[8px] rounded-2xl absolute -top-1 left-2">
-                {item}
+                {count}
               </p>
             )}
           </div>
@@ -109,7 +109,7 @@ export default function Nav({ count, setCount, item }) {
               </p>
               <div className=" flex flex-col justify-center items-center px-5">
                 {count < 1 ? (
-                  <div className="px-12 h-24 flex justify-center items-center">
+                  <div className="px-12 h-36 flex justify-center items-center">
                     <p className="text-center flex-nowrap text-nowrap font-bold">
                       Your cart is empty.
                     </p>

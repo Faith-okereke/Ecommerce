@@ -10,15 +10,16 @@ import TinyImages from "./TinyImages";
 import Nav from "./Nav";
 function App(props) {
   const [count, setCount] = useState(0);
+  const [tempCount, setTempCount] = useState(0);
   const [item, setItem] = useState("");
   function subNumber() {
     if (count > 0) {
-      setCount(count - 1);
+      setTempCount(tempCount - 1);
       return;
     }
   }
   function addNumber() {
-    setCount(count + 1);
+    setTempCount(tempCount + 1);
   }
   const [showNav, setShowNav] = useState(false);
 
@@ -26,9 +27,11 @@ function App(props) {
     console.log("NavBar Closed");
     setShowNav(false);
   };
-  const cartNumber = document.querySelector(".number");
+  
   const addItemToCart = () => {
     setItem(count);
+    setCount(prevCount => prevCount + tempCount);
+    setTempCount(0); 
   };
 
   const Mainimages = [
@@ -43,19 +46,16 @@ function App(props) {
   };
   return (
     <div>
-      <Nav
-        count={count}
-        setCount={setCount}
-        item={item}
-       
-      />
-     {openMainModal && ( <div className="">
-        <ImageSlider
-          openMainModal={openMainModal}
-          images={Mainimages}
-          setOpenMainModal={setOpenMainModal}
-        />
-      </div>)}
+      <Nav count={count} setCount={setCount} item={item} />
+      {openMainModal && (
+        <div className="">
+          <ImageSlider
+            openMainModal={openMainModal}
+            images={Mainimages}
+            setOpenMainModal={setOpenMainModal}
+          />
+        </div>
+      )}
       <div className="md:hidden block">
         <ImageSlider
           openMainModal={openMainModal}
@@ -63,26 +63,20 @@ function App(props) {
           setOpenMainModal={setOpenMainModal}
         />
       </div>
-      <div
-        className={`pb-20 ${
-          openMainModal
-            ? `opacity-75 bg-opacity-80 pointer-events-none bg-overlay overlay`
-            : ``
-        }`}
-      >
-        <main className="md:pt-12">
+      <div>
+        <main className="md:pt-12 md:px-12">
           <div className="flex justify-center gap-28">
             <img
               src={image1}
               alt=""
-              className="rounded-lg w-1/3 md:block hidden"
+              className="rounded-lg w-1/3 md:h-full lg:h-auto md:block hidden"
             />
 
             <div className="flex flex-col gap-4 md:pt-12 p-5 md:p-0">
               <h4 className="text-orange font-bold uppercase text-base">
                 Sneaker Company
               </h4>
-              <h2 className="md:text-4xl text-3xl font-bold pb-5 md:w-2/3">
+              <h2 className="md:text-4xl text-3xl md:w-[350px] font-bold pb-5">
                 Fall Limited Edition Sneakers
               </h2>
               <p className="max-w-[420px] text-lightGray">
@@ -102,13 +96,13 @@ function App(props) {
                 </p>
               </div>
               <div className="flex md:flex-row flex-col justify-normal gap-5 items-center">
-                <div className="flex items-center justify-between md:w-1/3 w-full bg-veryLightGray rounded-md px-5 py-3 gap-6">
+                <div className="flex items-center justify-between md:w-2/4 w-full bg-veryLightGray rounded-md px-5 py-3 gap-6">
                   <img
                     onClick={subNumber}
                     src={iconMinus}
                     className="w-2 cursor-pointer"
                   />
-                  <p className="font-bold">{count}</p>
+                  <p className="font-bold">{tempCount}</p>
                   <img
                     onClick={addNumber}
                     src={iconPlus}
@@ -117,7 +111,7 @@ function App(props) {
                 </div>
                 <div
                   onClick={addItemToCart}
-                  className="flex gap-2 addItem bg-orange px-5 py-3 rounded-md items-center cursor-pointer w-full  justify-center"
+                  className="flex gap-2 addItem bg-orange px-5 py-3 rounded-md items-center w-full min-w-[auto] justify-center"
                 >
                   <img className="w-3" src={cart} alt="" />
                   <button className="text-white font-bold text-sm">
@@ -136,7 +130,6 @@ function App(props) {
           ></div>
         )}
         <TinyImages showMainModal={showMainModal} />
-      
       </div>
     </div>
   );

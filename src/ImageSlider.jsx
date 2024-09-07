@@ -25,14 +25,14 @@ const ImageSlider = ({ images, openMainModal, setOpenMainModal }) => {
             {/* Close button */}
             <img
               onClick={() => setOpenMainModal(false)}
-              className="absolute hidden md:block -top-5 right-0 cursor-pointer"
+              className="absolute hidden md:block -top-8 right-[20%] cursor-pointer"
               src={exitIcon}
               alt="Close"
             />
             {/* Image and navigation */}
             <div className="relative flex justify-center items-center">
               <img
-                className="w-full md:w-[60%] md:rounded-xl"
+                className="w-full md:w-[60%] md:rounded-xl fill-white"
                 src={images[currentImageIndex]}
                 alt={`Slide ${currentImageIndex + 1}`}
               />

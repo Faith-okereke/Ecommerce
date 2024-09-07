@@ -6,7 +6,7 @@ import smallImage4 from "./assets/image-product-4-thumbnail.jpg";
 export default function TinyImages({ showMainModal }) {
   return (
     <div>
-      <div className="md:flex hidden items-center gap-5 pl-44 py-10">
+      <div className="md:flex hidden items-center gap-5 pl-[12%] py-10">
         <img
           onClick={showMainModal}
           className="active w-20 rounded-lg cursor-pointer  hover:opacity-40"
